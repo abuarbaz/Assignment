@@ -65,7 +65,7 @@ resource "azurerm_function_app" "function_app" {
   location                   = var.location
   app_service_plan_id        = azurerm_app_service_plan.app_service_plan.id
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = 1,
+    "WEBSITE_RUN_FROM_PACKAGE" = "",
     "FUNCTIONS_WORKER_RUNTIME" = "python",
     "AzureWebJobsDisableHomepage" = "true",
   }
@@ -77,10 +77,4 @@ resource "azurerm_function_app" "function_app" {
   storage_account_name       = azurerm_storage_account.storage_account.name
   storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
   version                    = "~4"
-
-  lifecycle {
-    ignore_changes = [
-      app_settings["WEBSITE_RUN_FROM_PACKAGE"],
-    ]
-  }
 }
